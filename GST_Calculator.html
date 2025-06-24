@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GST Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      background: white;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .result {
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .result p {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>GST Calculator</h2>
+    <label for="amount">Enter Amount (INR):</label>
+    <input type="number" id="amount" placeholder="e.g. 1000" />
+
+    <label for="gstRate">Select GST Rate (%):</label>
+    <select id="gstRate">
+      <option value="5">5%</option>
+      <option value="12">12%</option>
+      <option value="18" selected>18%</option>
+      <option value="28">28%</option>
+    </select>
+
+    <button onclick="calculateGST()">Calculate GST</button>
+
+    <div class="result" id="result" style="display: none;">
+      <p><strong>GST Amount:</strong> ₹<span id="gstAmount"></span></p>
+      <p><strong>Total Amount (incl. GST):</strong> ₹<span id="totalAmount"></span></p>
+    </div>
+  </div>
+
+  <script>
+    function calculateGST() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const gstRate = parseFloat(document.getElementById('gstRate').value);
+
+      if (isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid amount');
+        return;
+      }
+
+      const gstAmount = (amount * gstRate) / 100;
+      const totalAmount = amount + gstAmount;
+
+      document.getElementById('gstAmount').innerText = gstAmount.toFixed(2);
+      document.getElementById('totalAmount').innerText = totalAmount.toFixed(2);
+      document.getElementById('result').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
